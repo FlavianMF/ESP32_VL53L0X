@@ -195,8 +195,13 @@ public:
     return true;
   }
 
+#if CONFIG_IDF_TARGET_ESP32
   void i2cMasterInit(gpio_num_t pin_sda = GPIO_NUM_21,
                      gpio_num_t pin_scl = GPIO_NUM_22, uint32_t freq = 400000) {
+#elif CONFIG_IDF_TARGET_ESP32S3
+  void i2cMasterInit(gpio_num_t pin_sda = GPIO_NUM_21,
+                     gpio_num_t pin_scl = GPIO_NUM_42, uint32_t freq = 400000) {
+#endif
     i2c_config_t conf;
     memset(&conf, 0, sizeof(i2c_config_t));
     conf.mode = I2C_MODE_MASTER;
